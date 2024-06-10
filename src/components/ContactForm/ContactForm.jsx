@@ -3,6 +3,9 @@ import css from "./ContactForm.module.css";
 import * as Yup from "yup";
 import { nanoid } from "nanoid";
 
+import { addContact } from "../../redux/contactsSlice";
+import { useDispatch } from "react-redux";
+
 const UserChema = Yup.object().shape({
   name: Yup.string()
     .min(3, "Занадто короткий! Мінімум 3 символи!")
@@ -13,9 +16,13 @@ const UserChema = Yup.object().shape({
     .max(50, "Занадто довгий! Максимум 50 символів!")
     .required("Це обов'язкове поле!"),
 });
-export default function ContactForm({ onAdd }) {
+export default function ContactForm() {
+  const dispatch = useDispatch();
+
   const handleSubmit = (values, actions) => {
-    onAdd({ ...values, id: nanoid() });
+    values.id = nanoid();
+    const { name, phone } = values;
+    dispatch(addContact(name, phone));
     actions.resetForm();
   };
 
