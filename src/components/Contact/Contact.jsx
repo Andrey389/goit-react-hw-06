@@ -5,7 +5,7 @@ import { FaPhone } from "react-icons/fa6";
 import { useDispatch } from "react-redux";
 import { deleteContact } from "../../redux/contactsSlice";
 
-export default function Contact({ item: { id, name, number } }) {
+export default function Contact({ id, name, number }) {
   const dispatch = useDispatch();
 
   const handleDeleteContact = () => {

@@ -1,4 +1,4 @@
-// import Contact from "../Contact/Contact";
+import Contact from "../Contact/Contact";
 import css from "./ContactList.module.css";
 
 import { useSelector } from "react-redux";
@@ -9,11 +9,11 @@ export default function ContactList() {
   const Contacts = useSelector(selectContacts);
   const Filters = useSelector(selectNameFilter);
   const VisibleContacts = Contacts.filter((Contact) => {
-    if ("id" in Contact && "name" in Contact && "phone" in Contact) {
+    if ("id" in Contact && "name" in Contact && "number" in Contact) {
       if (
         typeof Contact.id === "string" &&
         typeof Contact.name === "string" &&
-        typeof Contact.phone === "string"
+        typeof Contact.number === "string"
       ) {
         return Contact.name.toLowerCase().includes(Filters.toLowerCase());
       }
@@ -23,13 +23,13 @@ export default function ContactList() {
 
   return (
     <ul className={css.ulContainer}>
-      {VisibleContacts.map((Contact) => {
+      {VisibleContacts.map((contact) => {
         return (
-          <li key={Contact.id} className={css.container}>
+          <li key={contact.id} className={css.container}>
             <Contact
-              id={Contact.id}
-              name={Contact.name}
-              phone={Contact.phone}
+              id={contact.id}
+              name={contact.name}
+              number={contact.number}
             />
           </li>
         );
